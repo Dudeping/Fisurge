@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace FileSplitTool
+namespace Codeping.Fisurge.Console
 {
     class Program
     {
@@ -15,25 +13,25 @@ namespace FileSplitTool
 
             //if (split.SplitAsync().Result)
             //{
-            //    Console.WriteLine("ok");
+            //    System.Console.WriteLine("ok");
             //}
             //else
             //{
-            //    Console.WriteLine("fail.");
+            //    System.Console.WriteLine("fail.");
             //}
 
             Tool pack = new Tool(AppDomain.CurrentDomain.BaseDirectory);
 
             if (pack.PackAsync().Result)
             {
-                Console.WriteLine("ok");
+                System.Console.WriteLine("ok");
             }
             else
             {
-                Console.WriteLine("fail.");
+                System.Console.WriteLine("fail.");
             }
 
-            Console.ReadKey();
+            System.Console.ReadKey();
         }
     }
 
@@ -62,11 +60,11 @@ namespace FileSplitTool
 
                 for (int i = 0; i < _num; i++)
                 {
-                    Console.WriteLine($"split to file { fileName } begin.");
+                    System.Console.WriteLine($"split to file { fileName } begin.");
 
                     using (FileStream ws = new FileStream($"chip{i}_{fileName}.7z", FileMode.CreateNew))
                     {
-                        Console.WriteLine($"{i + 1} / {_num} split chip{i}.7z new...");
+                        System.Console.WriteLine($"{i + 1} / {_num} split chip{i}.7z new...");
 
                         while (true)
                         {
@@ -92,7 +90,7 @@ namespace FileSplitTool
                     }
                 }
 
-                Console.WriteLine("split success.");
+                System.Console.WriteLine("split success.");
             }
 
             return true;
@@ -108,9 +106,9 @@ namespace FileSplitTool
 
             using (FileStream ws = new FileStream(fileName, FileMode.CreateNew))
             {
-                Console.WriteLine($"pack to file {fileName} begin.");
+                System.Console.WriteLine($"pack to file {fileName} begin.");
 
-                Console.WriteLine($"there has {fileInfos.Length} file to copy.");
+                System.Console.WriteLine($"there has {fileInfos.Length} file to copy.");
 
                 int num = 0;
 
@@ -118,13 +116,13 @@ namespace FileSplitTool
                 {
                     using (FileStream rs = new FileStream(file.FullName, FileMode.Open))
                     {
-                        Console.WriteLine($" { ++num } / { fileInfos.Length } copy file {file.FullName} now...");
+                        System.Console.WriteLine($" { ++num } / { fileInfos.Length } copy file {file.FullName} now...");
                         await rs.CopyToAsync(ws);
                     }
                 }
             }
 
-            Console.WriteLine("pack success.");
+            System.Console.WriteLine("pack success.");
 
             return true;
         }
